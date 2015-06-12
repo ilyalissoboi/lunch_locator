@@ -52,7 +52,6 @@
         }
 
         function loc_success(position) {
-          loc = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           request_data.data.ll = position.coords.latitude + ',' + position.coords.longitude;
 
           $.ajax({
