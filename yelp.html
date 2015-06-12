@@ -67,7 +67,7 @@
               li.appendTo(container);
             };
           }).fail(function(jqXHR, textStatus) {
-            console.log(textStatus);
+            console.log('AJAX error occured: ' + textStatus);
           })
           .always(function() {
             console.log('AJAX request complete');
@@ -77,6 +77,10 @@
         function loc_error(msg) {
           console.log('error: ' + msg);
         }
+
+        $(document).ajaxError(function(event, jqxhr, ajaxOptions, errorThrown) {
+          console.log(errorThrown);
+        });
       });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
