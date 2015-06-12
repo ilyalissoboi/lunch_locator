@@ -54,6 +54,8 @@
         function loc_success(position) {
           request_data.data.ll = position.coords.latitude + ',' + position.coords.longitude;
 
+          console.log(oauth.authorize(request_data, token));
+
           $.ajax({
               url: request_data.url,
               type: request_data.method,
