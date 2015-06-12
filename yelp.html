@@ -7,7 +7,50 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <!-- sha1 -->
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
+    <!-- sha256 -->
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script>
+
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+    <script src="javascripts/oauth-1.0a.js"></script>
     <script src="javascripts/scale.fix.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/padolsey/prettyPrint.js/master/prettyprint.js"></script>
+    <script type="text/javascript">
+      var output;
+
+      var request_data = {
+          url: 'http://api.yelp.com/v2/search?term=food&ll=35.6937833,139.7733603&radius_filter=1000',
+          method: 'GET',
+          data: {}
+      };
+
+      $( document ).ready(function() {
+        var oauth = OAuth({
+          consumer: {
+            public: 'kH_OonHE9LhcStkXPFnCyQ',
+            secret: 'C8Snl5jVRVb6BB5x4NRqED8Msio'
+          },
+          signature_method: 'HMAC-SHA1'
+        });
+
+        var token = {
+            public: 'KAqeR0tF4n58mJzmlpoN_L1nIaVKbNW0',
+            secret: '6pnca-SLGZbbSpUssOtS-dINsno'
+        };
+
+        $.ajax({
+            url: request_data.url,
+            type: request_data.method,
+            data: oauth.authorize(request_data, token)
+        }).done(function(data) {
+          console.log(data);
+            var output = prettyPrint(data);
+            $('#yelp_output').html(output);
+        });
+      });
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <!--[if lt IE 9]>
@@ -27,10 +70,9 @@
         </ul>
       </header>
       <section>
-        <h1>
-<a id="lunch_locator" class="anchor" href="#lunch_locator" aria-hidden="true"><span class="octicon octicon-link"></span></a>lunch_locator</h1>
-
-<p>Web app suggesting locations for eating lunch</p>
+        <h1><a id="lunch_locator" class="anchor" href="#lunch_locator" aria-hidden="true"><span class="octicon octicon-link"></span></a>lunch_locator</h1>
+        <p>Yelp search result:</p>
+        <div id="yelp_output"></div>
       </section>
     </div>
     <footer>
