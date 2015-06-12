@@ -66,6 +66,11 @@
               li.html($data.businesses[i].name);
               li.appendTo(container);
             };
+          }).fail(function(jqXHR, textStatus) {
+            console.log(textStatus);
+          })
+          .always(function() {
+            console.log('AJAX request complete');
           });
         }
 
